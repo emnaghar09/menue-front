@@ -1,42 +1,35 @@
-<form [formGroup]="dishForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="title">Dish Title</label>
-      <input id="title" formControlName="title" />
-    </div>
-  
-    <div>
-      <label for="time">Time</label>
-      <input id="time" formControlName="time" />
-    </div>
-  
-    <div>
-      <label for="difficulty">Difficulty</label>
-      <input id="difficulty" formControlName="difficulty" />
-    </div>
-  
-    <div>
-      <label for="rating">Rating</label>
-      <input id="rating" formControlName="rating" />
-    </div>
-  
-    <div formArrayName="ingredientListForm">
-      <div *ngFor="let ingredientCtrl of ingredientListForm.get('ingredientLists').controls; let i = index" [formGroupName]="i">
-        <div>
-          <label for="ingredientName">Ingredient Name</label>
-          <input id="ingredientName" formControlName="ingredientName" />
-        </div>
-  
-        <div>
-          <label for="quantity">Quantity</label>
-          <input id="quantity" formControlName="quantity" type="number" />
-        </div>
-  
-        <button type="button" (click)="removeIngredient(i)">Remove Ingredient</button>
-      </div>
-    </div>
-  
-    <button type="button" (click)="addIngredient()">Add Ingredient</button>
-    <button type="submit">Save Dish</button>
+<form [formGroup]="dishForm" (ngSubmit)="onSubmit()"class="container mt-5">
+  <div class="mb-3">
+    <label for="title">Dish Title</label>
+    <input id="title" formControlName="title" class="mb-3"/>
+  </div>
 
-  </form>
-  
+  <div class="mb-3">
+    <label for="time">Time</label>
+    <input id="time" formControlName="time" class="mb-3" />
+  </div>
+
+  <div class="mb-3">
+    <label for="difficulty">Difficulty</label>
+    <input id="difficulty" formControlName="difficulty" class="mb-3"/>
+  </div>
+
+  <div class="mb-3">
+    <label for="rating">Rating</label>
+    <input id="rating" formControlName="rating" class="mb-3"/>
+  </div>
+
+  <div formGroupName="ingredientListForm">
+    <div class="mb-3">
+      <label for="ingredientName">Ingredient Name</label>
+      <input id="ingredientName" formControlName="ingredient" class="mb-3" />
+    </div>
+
+    <div class="mb-3">
+      <label for="quantity">Quantity</label>
+      <input id="quantity" formControlName="quantity" type="number" class="mb-3"/>
+    </div>
+  </div>
+
+  <button type="submit">Save Dish</button>
+</form>

@@ -1,11 +1,9 @@
-
 import { Component } from '@angular/core';
-import { IngredientList } from 'src/app/models/ingredient-list';
 import { FormArray, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { DishService } from './../../service/dish.service';
 import { Dish } from './../../models/dish';
 import { IngredientListService } from './../../service/ingredient-list.service';
-
+import { IngredientList } from 'src/app/models/ingredient-list';
 
 @Component({
   selector: 'app-ingredient-list-form',
@@ -13,25 +11,25 @@ import { IngredientListService } from './../../service/ingredient-list.service';
   styleUrls: ['./ingredient-list-form.component.css']
 })
 export class IngredientListFormComponent {
-
-// dishForm = FormGroup;
-dishForm = new FormGroup({
-  id: new FormControl(null, Validators.required),
-    time: new FormControl(null, Validators.required),
-    difficulty:new FormControl(null, Validators.required),
-    rating: new FormControl(null, Validators.required),
-    title:new FormControl('', Validators.required),
-});
-
-  ingredientListForm = new FormGroup({
+  dishForm = new FormGroup({
     id: new FormControl(null, Validators.required),
-    quantity: new FormControl(null, Validators.required),
-    dish: new FormControl(null, Validators.required),
-    ingredient: new FormControl(null, Validators.required)
+    time: new FormControl(null, Validators.required),
+    difficulty: new FormControl(null, Validators.required),
+    rating: new FormControl(null, Validators.required),
+    title: new FormControl('', Validators.required),
+    ingredientListForm: new FormGroup({
+      id: new FormControl(null, Validators.required),
+      quantity: new FormControl(null, Validators.required),
+      ingredient: new FormControl('', Validators.required)
+    })
   });
 
-  constructor( private ingredientListService: IngredientListService, private fb: FormBuilder, private dishService:DishService) {
-  }
+  constructor(
+    private ingredientListService: IngredientListService, 
+    private fb: FormBuilder, 
+    private dishService: DishService
+  ) {}
+
   ngOnInit(): void {}
 
   onSubmit() {
@@ -39,24 +37,28 @@ dishForm = new FormGroup({
       const dish: Dish = {
         id: this.dishForm.value.id!,
         time: this.dishForm.value.time!,
-        difficulty:this.dishForm.value.difficulty!,
-        rating:this.dishForm.value.rating!,
-        title:this.dishForm.value.title!,
+        difficulty: this.dishForm.value.difficulty!,
+        rating: this.dishForm.value.rating!,
+        title: this.dishForm.value.title!,
       };
+
       this.dishService.addDish(dish).subscribe(() => {
-        console.log('dish added successfully');
+        console.log('Dish added successfully');
       });
-  }
-  if (this.ingredientListForm.valid) {
-    const ingredientList: IngredientList = {
-      id: this.ingredientListForm.value.id!,
-      quantity: this.ingredientListForm.value.quantity!,
-      dish: this.ingredientListForm.value.dish!, 
-      ingredient: this.ingredientListForm.value.ingredient!
-    };
-    this.ingredientListService.addIngredientList(ingredientList).subscribe(() => {
-      console.log('dish added successfully');
-    });
-}
+
+      const ingredientListFormGroup = this.dishForm.get('ingredientListForm') as FormGroup;
+      if (ingredientListFormGroup.valid) {
+        const ingredientList: IngredientList = {
+          id: ingredientListFormGroup.value.id!,
+          quantity: ingredientListFormGroup.value.quantity!,
+          dish: dish, 
+          ingredient: ingredientListFormGroup.value.ingredient!
+        };
+
+        this.ingredientListService.addIngredientList(ingredientList).subscribe(() => {
+          console.log('Ingredient list added successfully');
+        });
+      }
+    }
   }
 }

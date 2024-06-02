@@ -1,1 +1,8 @@
-<p>ingredient-list works!</p>
+<h2>Ingredient List</h2>
+<ul>
+  <li *ngFor="let list of ingredientList">
+    <p>{{ list.dish }}</p>
+    <p>{{ list.ingredient }}</p>
+    <p>{{ list.quantity }}</p>
+  </li>
+</ul>
