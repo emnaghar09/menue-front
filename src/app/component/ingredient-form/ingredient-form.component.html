@@ -1,0 +1,6 @@
+<form [formGroup]="ingredientsForm" (ngSubmit)="onSubmit()">
+
+    <label for="first-name">Ingredient: </label>
+    <input id="first-name" type="text" formControlName="name">
+    <button type="submit" [disabled]="!ingredientsForm.valid" click="goToIngredients()">Submit</button>
+</form>
