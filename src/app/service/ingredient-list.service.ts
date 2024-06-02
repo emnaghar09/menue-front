@@ -17,5 +17,9 @@ export class IngredientListService {
       map((response:any)=>response.ingredientList)
     )
   }
+
+  addIngredientList(ingredientList: IngredientList):Observable<IngredientList>{
+    return this.httpClient.post<IngredientList>(this.ApiUrl, ingredientList);
+  }
 }
 

@@ -2,5 +2,12 @@
 
     <label for="first-name">Ingredient: </label>
     <input id="first-name" type="text" formControlName="name">
+    <div formArrayName="description">
+        <div *ngFor="let descControl of ingredientsForm.get('description').controls; let i = index">
+          <input type="text" [formControlName]="i">
+        </div>
+        <button type="button" (click)="addDescription()">Add Description</button>
+      </div>
     <button type="submit" [disabled]="!ingredientsForm.valid" click="goToIngredients()">Submit</button>
+
 </form>

@@ -23,7 +23,12 @@ dishForm = new FormGroup({
     title:new FormControl('', Validators.required),
 });
 
-  ingredientListForm = new FormArray([]);
+  ingredientListForm = new FormGroup({
+    id: new FormControl(null, Validators.required),
+    quantity: new FormControl(null, Validators.required),
+    dish: new FormControl(null, Validators.required),
+    ingredient: new FormControl(null, Validators.required)
+  });
 
   constructor( private ingredientListService: IngredientListService, private fb: FormBuilder, private dishService:DishService) {
   }
@@ -44,13 +49,12 @@ dishForm = new FormGroup({
   }
   if (this.ingredientListForm.valid) {
     const ingredientList: IngredientList = {
-      id: this.dishForm.value.id!,
-      time: this.dishForm.value.time!,
-      difficulty:this.dishForm.value.difficulty!,
-      rating:this.dishForm.value.rating!,
-      title:this.dishForm.value.title!,
+      id: this.ingredientListForm.value.id!,
+      quantity: this.ingredientListForm.value.quantity!,
+      dish: this.ingredientListForm.value.dish!, 
+      ingredient: this.ingredientListForm.value.ingredient!
     };
-    this.dishService.addDish(dish).subscribe(() => {
+    this.ingredientListService.addIngredientList(ingredientList).subscribe(() => {
       console.log('dish added successfully');
     });
 }
