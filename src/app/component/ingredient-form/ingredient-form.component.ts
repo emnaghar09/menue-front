@@ -12,7 +12,7 @@ import { Ingredient } from 'src/app/models/ingredient';
 export class IngredientFormComponent {
   ingredientsForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    description: new FormArray([new FormControl('', Validators.required), new FormControl('', Validators.required), new FormControl('', Validators.required)]),
+    description: new FormArray([new FormControl('', Validators.required)]),
   });
 
   constructor(private ingredientService: IngredientService, private router: Router) {}
@@ -31,9 +31,9 @@ export class IngredientFormComponent {
         name: this.ingredientsForm.value.name!,
         description: this.ingredientsForm.value.description as []
       };
-      this.ingredientService.addIngredient(ingredient).subscribe(() => {
-        this.router.navigateByUrl('ingredient');
-      });
+      this.ingredientService.addIngredient(ingredient).subscribe(() => {console.log('added')});
+
+      this.router.navigateByUrl('ingredient');
     }
   }
 }
